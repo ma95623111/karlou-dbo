@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.karlou.dbo.autoconfigure.KarlouDboAutoConfiguration,\
+com.karlou.dbo.autoconfigure.DruidDataSourceAutoConfigure,\
+com.karlou.dbo.autoconfigure.MybatisLanguageDriverAutoConfiguration,\com.karlou.dbo.autoconfigure.MybatisAutoConfiguration

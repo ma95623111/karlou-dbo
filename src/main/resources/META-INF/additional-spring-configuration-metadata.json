@@ -1,0 +1,242 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.druid.connection-properties",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.druid.pool.DruidDataSource"
+    },
+    {
+      "name": "spring.datasource.druid.filters",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.druid.pool.DruidDataSource"
+    },
+    {
+      "name": "spring.datasource.druid.filter.stat.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable StatFilter.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.datasource.druid.filter.config.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable ConfigFilter.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.druid.filter.encoding.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable EncodingConvertFilter.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.druid.filter.slf4j.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable Slf4jLogFilter.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.druid.filter.log4j.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable Log4jFilter.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.druid.filter.log4j2.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable Log4j2Filter.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.druid.filter.commons-log.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable CommonsLogFilter.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.druid.filter.wall.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.karlou.dbo.config.DruidFilterConfiguration",
+      "description": "Enable WallFilter.",
+      "defaultValue": false
+    },
+    {
+      "sourceType": "org.apache.ibatis.session.Configuration",
+      "defaultValue": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+      "name": "mybatis.configuration.default-scripting-language",
+      "description": "A default LanguageDriver class.",
+      "type": "java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>",
+      "deprecation": {
+        "reason": "Because when this configuration property is used, there is case that custom language driver cannot be registered correctly.",
+        "replacement": "mybatis.default-scripting-language-driver"
+      }
+    },
+    {
+      "sourceType": "org.apache.ibatis.session.Configuration",
+      "defaultValue": "org.apache.ibatis.type.EnumTypeHandler",
+      "name": "mybatis.configuration.default-enum-type-handler",
+      "description": "A default TypeHandler class for Enum.",
+      "type": "java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>"
+    },
+    {
+      "defaultValue": false,
+      "name": "mybatis.lazy-initialization",
+      "description": "Set whether enable lazy initialization for mapper bean.",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": "",
+      "name": "mybatis.mapper-default-scope",
+      "description": "A default scope for mapper bean that scanned by auto-configure.",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "mybatis.scripting-language-driver.velocity.userdirective",
+      "deprecation": {
+        "level": "error",
+        "reason": "The 'userdirective' is deprecated since Velocity 2.x. This property defined for keeping backward compatibility with older velocity version.",
+        "replacement": "mybatis.scripting-language-driver.velocity.velocity-settings.runtime.custom_directives"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.datasource.druid.filter.stat.db-type",
+      "type": "java.lang.String",
+      "values": [
+        {
+          "value": "db2"
+        },
+        {
+          "value": "postgresql"
+        },
+        {
+          "value": "sqlserver"
+        },
+        {
+          "value": "oracle"
+        },
+        {
+          "value": "AliOracle"
+        },
+        {
+          "value": "mysql"
+        },
+        {
+          "value": "mariadb"
+        },
+        {
+          "value": "hive"
+        },
+        {
+          "value": "h2"
+        },
+        {
+          "value": "dm"
+        },
+        {
+          "value": "kingbase"
+        },
+        {
+          "value": "oceanbase"
+        },
+        {
+          "value": "xugu"
+        },
+        {
+          "value": "odps"
+        },
+        {
+          "value": "teradata"
+        },
+        {
+          "value": "log4jdbc"
+        },
+        {
+          "value": "phoenix"
+        },
+        {
+          "value": "edb"
+        },
+        {
+          "value": "kylin"
+        },
+        {
+          "value": "sqlite"
+        }
+      ]
+    },
+    {
+      "name": "spring.datasource.druid.filter.wall.db-type",
+      "type": "java.lang.String",
+      "values": [
+        {
+          "value": "db2"
+        },
+        {
+          "value": "postgresql"
+        },
+        {
+          "value": "sqlserver"
+        },
+        {
+          "value": "oracle"
+        },
+        {
+          "value": "AliOracle"
+        },
+        {
+          "value": "mysql"
+        },
+        {
+          "value": "mariadb"
+        },
+        {
+          "value": "hive"
+        },
+        {
+          "value": "h2"
+        },
+        {
+          "value": "dm"
+        },
+        {
+          "value": "kingbase"
+        },
+        {
+          "value": "oceanbase"
+        },
+        {
+          "value": "xugu"
+        },
+        {
+          "value": "odps"
+        },
+        {
+          "value": "teradata"
+        },
+        {
+          "value": "log4jdbc"
+        },
+        {
+          "value": "phoenix"
+        },
+        {
+          "value": "edb"
+        },
+        {
+          "value": "kylin"
+        },
+        {
+          "value": "sqlite"
+        }
+      ]
+    }
+  ]
+}
