@@ -14,6 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class DruidDataSourceWrapper extends DruidDataSource implements InitializingBean {
     @Autowired
     private DataSourceProperties basicProperties;
+    private volatile String url;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -25,7 +26,9 @@ public class DruidDataSourceWrapper extends DruidDataSource implements Initializ
             super.setPassword(basicProperties.determinePassword());
         }
         if (super.getUrl() == null) {
-            super.setUrl(basicProperties.determineUrl());
+            if (this.url == null)
+                super.setUrl(basicProperties.determineUrl());
+            else super.setUrl(url);
         }
         if (super.getDriverClassName() == null) {
             super.setDriverClassName(basicProperties.getDriverClassName());
@@ -52,5 +55,15 @@ public class DruidDataSourceWrapper extends DruidDataSource implements Initializ
         } catch (IllegalArgumentException ignore) {
             super.maxEvictableIdleTimeMillis = maxEvictableIdleTimeMillis;
         }
+    }
+
+    @Override
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

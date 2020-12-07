@@ -1,8 +1,6 @@
 package com.karlou.dbo.injector;
 
 import com.karlou.dbo.enums.IndexesTypeEnum;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 数据库字段代理对象
@@ -11,8 +9,6 @@ import lombok.Setter;
  * @mail 95623111@qq.com
  * @date 2020/9/22 17:42
  */
-@Getter
-@Setter
 public class AbstractFieldInfo {
     //列名
     protected String fieldName;

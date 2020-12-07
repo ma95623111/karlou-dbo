@@ -15,13 +15,8 @@ import org.apache.ibatis.mapping.StatementType;
 import org.apache.ibatis.session.Configuration;
 import org.springframework.util.StringUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.karlou.dbo.base.Constants.*;
 
@@ -230,7 +225,7 @@ public class MySqlInjectorImpl implements SqlInjector {
 
     private String getTableName(Class c) {
         TableAttribute tableAttribute = (TableAttribute) c.getAnnotation(TableAttribute.class);
-        String tableName = StringUtils.isEmpty(tableAttribute.datasource()) ? tableAttribute.name() : tableAttribute.datasource() + "." + tableAttribute.name();
+        String tableName = !StringUtils.hasLength(tableAttribute.datasource()) ? tableAttribute.name() : tableAttribute.datasource() + "." + tableAttribute.name();
         return tableName;
     }
 
@@ -241,7 +236,7 @@ public class MySqlInjectorImpl implements SqlInjector {
                 &&
                 d.getAnnotation(FieldAttribute.class).iskey()).forEach(f -> {
             FieldAttribute fieldAttribute = (FieldAttribute) f.getAnnotation(FieldAttribute.class);
-            String sqlScript = (StringUtils.isEmpty(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) +
+            String sqlScript = (!StringUtils.hasLength(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) +
                     EQ + HASH_LEFT_BRACE + ENTITY + DOT + f.getName() + RIGHT_BRACE + CONJ;
             String ifTest = ENTITY + DOT + f.getName() + NOEQUALS + EMPTY + CONJ + ENTITY + DOT + f.getName() + NOEQUALS + "''";
             String convertIf = SqlScriptUtil.convertIf(sqlScript, ifTest, true);
@@ -267,7 +262,7 @@ public class MySqlInjectorImpl implements SqlInjector {
         StringBuffer buffer = new StringBuffer();
         Arrays.stream(declaredFields).filter(d -> d.getAnnotation(FieldAttribute.class) != null).forEach(f -> {
             FieldAttribute fieldAttribute = (FieldAttribute) f.getAnnotation(FieldAttribute.class);
-            String sqlScript = (StringUtils.isEmpty(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) +
+            String sqlScript = (!StringUtils.hasLength(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) +
                     EQ + HASH_LEFT_BRACE + ENTITY + DOT + f.getName() + RIGHT_BRACE + ",";
             String ifTest = ENTITY + DOT + f.getName() + NOEQUALS + EMPTY + CONJ + ENTITY + DOT + f.getName() + NOEQUALS + "''";
             String convertIf = SqlScriptUtil.convertIf(sqlScript, ifTest, true);
@@ -283,7 +278,7 @@ public class MySqlInjectorImpl implements SqlInjector {
         StringBuffer buffer = new StringBuffer();
         Arrays.stream(declaredFields).filter(d -> d.getAnnotation(FieldAttribute.class) != null).forEach(f -> {
             FieldAttribute fieldAttribute = (FieldAttribute) f.getAnnotation(FieldAttribute.class);
-            buffer.append(StringUtils.isEmpty(fieldAttribute.name()) ? f.getName() : fieldAttribute.name())
+            buffer.append(!StringUtils.hasLength(fieldAttribute.name()) ? f.getName() : fieldAttribute.name())
                     .append(PREP)
                     .append(f.getName())
                     .append(",");
@@ -309,7 +304,7 @@ public class MySqlInjectorImpl implements SqlInjector {
         Arrays.stream(declaredFields).filter(d -> d.getAnnotation(FieldAttribute.class) != null
         ).forEach(f -> {
             FieldAttribute fieldAttribute = (FieldAttribute) f.getAnnotation(FieldAttribute.class);
-            String sqlScript = (StringUtils.isEmpty(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) + ",";
+            String sqlScript = (!StringUtils.hasLength(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) + ",";
             String ifTest = ENTITY + DOT + f.getName() + NOEQUALS + EMPTY + CONJ + ENTITY + DOT + f.getName() + NOEQUALS + "''";
             String convertIf = SqlScriptUtil.convertIf(sqlScript, ifTest, true);
             buffer.append(convertIf);
@@ -322,7 +317,7 @@ public class MySqlInjectorImpl implements SqlInjector {
         StringBuffer buffer = new StringBuffer();
         Arrays.stream(declaredFields).filter(d -> d.getAnnotation(FieldAttribute.class) != null).forEach(f -> {
             FieldAttribute fieldAttribute = (FieldAttribute) f.getAnnotation(FieldAttribute.class);
-            String sqlScript = (StringUtils.isEmpty(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) + ",";
+            String sqlScript = (!StringUtils.hasLength(fieldAttribute.name()) ? f.getName() : fieldAttribute.name()) + ",";
             buffer.append(sqlScript);
         });
         return SqlScriptUtil.convertTrim(buffer.toString(), "(", ")", "", ",");

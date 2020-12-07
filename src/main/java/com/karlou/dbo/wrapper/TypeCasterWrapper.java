@@ -59,7 +59,7 @@ public class TypeCasterWrapper {
      * @return
      */
     public static String getType(String key, int length) {
-        if (StringUtils.isEmpty(key)) {
+        if (!StringUtils.hasLength(key)) {
             return null;
         }
 

@@ -514,149 +514,148 @@ public class DynamicDbController {
 //        Integer existTable = baseMapper.isExistTable(customDb);
 //        return existTable;
 //    }
-    @Autowired
-    TesMapper tesMapper;
-
-    @GetMapping("/selectAll")
-    public List<CustomDb> testSelectAll() {
-        List<CustomDb> customDbs = tesMapper.selectAll();
-        return customDbs;
-    }
-
-    @GetMapping("/selectKey")
-    public CustomDb testSelectKey() {
-        CustomDb db = new CustomDb();
-        db.setDb_alias("mzc");
-        db.setDburl("jdbc:karlou");
-        db.setId(2);
-        CustomDb customDb = tesMapper.selectKey(db);
-        return customDb;
-    }
-
-    @GetMapping("/selectDyn")
-    public List<CustomDb> testSelectDny() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("db_alias", "mzc");
-        List<CustomDb> customDb = tesMapper.selectDyn(map);
-        return customDb;
-    }
-
-    @DeleteMapping("/deleteAll")
-    public int testdeleteAll() {
-        int i = tesMapper.deleteAll();
-        return i;
-    }
-
-    @DeleteMapping("/deleteKey")
-    public int testdeleteKey() {
-        CustomDb db = new CustomDb();
-        db.setDb_alias("mzc");
-        db.setDburl("jdbc:karlou");
-        db.setId(2);
-        int i = tesMapper.deleteKey(db);
-        return i;
-    }
-
-    @DeleteMapping("/deleteDyn")
-    public int testdeleteDyn() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("db_alias", "mzc");
-        int customDb = tesMapper.deleteDyn(map);
-        return customDb;
-    }
-    //----------开始更新----
-
-    /**
-     * 更新数据
-     * 根据当前entry主键 更新指定数据
-     */
-    @PutMapping("updateKey")
-    int updateKey() {
-        CustomDb customDb = testSelectKey();
-        customDb.setDb_pwd("wy shi xiao gou");
-        int i = tesMapper.updateKey(customDb);
-        return i;
-    }
-
-    ;
-
-    /**
-     * 更新数据
-     * 根据当前class 及 自定义条件 更新指定数据
-     */
-    @PutMapping("updateDyn")
-    int updateDyn() {
-        Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("db_alias", "mzc");
-        CustomDb db = new CustomDb();
-        db.setDb_wait_time(5000.0);
-        int i = tesMapper.updateDyn(db, hashMap);
-        return i;
-    }
-
-    ;
-
-    //----------开始插入----
-
-    /**
-     * 插入数据
-     * 根据entry  插入指定数据
-     */
-    @PostMapping("insertEnt")
-    int insertEnt() {
-        CustomDb db = new CustomDb();
-        db.setDb_wait_time(2102.0);
-        db.setDburl("karlou");
-        db.setId(8);
-        db.setDb_alias("karlou");
-        db.setDb_user("karlou");
-        db.setDb_pwd("zxca");
-        int i = tesMapper.insertEnt(db);
-        return i;
-    }
-
-    ;
-
-    /**
-     * 插入数据
-     * 根据List<entry> 插入批量数据
-     */
-    @PostMapping("insertList")
-    int insertList() {
-        List<CustomDb> list = new ArrayList<>();
-        for (int o = 10; o < 16; o++) {
-            CustomDb db = new CustomDb();
-            db.setDb_wait_time(2102.0 + o);
-            db.setDburl("karlou" + 0);
-            db.setId(0);
-            db.setDb_alias("karlou" + o);
-            db.setDb_user("karlou" + o);
-            db.setDb_pwd("zxca" + o);
-            list.add(db);
-        }
-        int i = tesMapper.insertList(list);
-        return 0;
-    }
-
-    ;
-
-    /**
-     * 插入数据
-     * 根据自定义条件插入数据
-     */
-    @PostMapping("insertDyn")
-    int insertDyn() {
-        Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("db_alias", "qiw");
-        hashMap.put("db_wait_time", 3044.0);
-        hashMap.put("db_user", "qiw");
-        hashMap.put("dbpwd", "qiw");
-        hashMap.put("id", 20);
-        hashMap.put("db_url", "12121");
-        int i = tesMapper.insertDyn(hashMap);
-        return i;
-    }
-
-    ;
+//    @Autowired
+//    TesMapper tesMapper;
+//
+//    @GetMapping("/selectAll")
+//    public List<CustomDb> testSelectAll() {
+//        List<CustomDb> customDbs = tesMapper.selectAll();
+//        return customDbs;
+//    }
+//
+//    @GetMapping("/selectKey")
+//    public CustomDb testSelectKey() {
+//        CustomDb db = new CustomDb();
+//        db.setDb_alias("mzc");
+//        db.setDburl("jdbc:karlou");
+//        db.setId(2);
+//        CustomDb customDb = tesMapper.selectKey(db);
+//        return customDb;
+//    }
+//
+//    @GetMapping("/selectDyn")
+//    public List<CustomDb> testSelectDny() {
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("db_alias", "mzc");
+//        List<CustomDb> customDb = tesMapper.selectDyn(map);
+//        return customDb;
+//    }
+//
+//    @DeleteMapping("/deleteAll")
+//    public int testdeleteAll() {
+//        int i = tesMapper.deleteAll();
+//        return i;
+//    }
+//
+//    @DeleteMapping("/deleteKey")
+//    public int testdeleteKey() {
+//        CustomDb db = new CustomDb();
+//        db.setDb_alias("mzc");
+//        db.setDburl("jdbc:karlou");
+//        db.setId(2);
+//        int i = tesMapper.deleteKey(db);
+//        return i;
+//    }
+//
+//    @DeleteMapping("/deleteDyn")
+//    public int testdeleteDyn() {
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("db_alias", "mzc");
+//        int customDb = tesMapper.deleteDyn(map);
+//        return customDb;
+//    }
+//    //----------开始更新----
+//
+//    /**
+//     * 更新数据
+//     * 根据当前entry主键 更新指定数据
+//     */
+//    @PutMapping("updateKey")
+//    int updateKey() {
+//        CustomDb customDb = testSelectKey();
+//        customDb.setDb_pwd("wy shi xiao gou");
+//        int i = tesMapper.updateKey(customDb);
+//        return i;
+//    }
+//
+//    ;
+//
+//    /**
+//     * 更新数据
+//     * 根据当前class 及 自定义条件 更新指定数据
+//     */
+//    @PutMapping("updateDyn")
+//    int updateDyn() {
+//        Map<String, Object> hashMap = new HashMap<>();
+//        hashMap.put("db_alias", "mzc");
+//        CustomDb db = new CustomDb();
+//        db.setDb_wait_time(5000.0);
+//        int i = tesMapper.updateDyn(db, hashMap);
+//        return i;
+//    }
+//
+//    ;
+//
+//    //----------开始插入----
+//
+//    /**
+//     * 插入数据
+//     * 根据entry  插入指定数据
+//     */
+//    @PostMapping("insertEnt")
+//    int insertEnt() {
+//        CustomDb db = new CustomDb();
+//        db.setDb_wait_time(2102.0);
+//        db.setDburl("karlou");
+//        db.setId(8);
+//        db.setDb_alias("karlou");
+//        db.setDb_user("karlou");
+//        db.setDb_pwd("zxca");
+//        int i = tesMapper.insertEnt(db);
+//        return i;
+//    }
+//
+//    ;
+//
+//    /**
+//     * 插入数据
+//     * 根据List<entry> 插入批量数据
+//     */
+//    @PostMapping("insertList")
+//    int insertList() {
+//        List<CustomDb> list = new ArrayList<>();
+//        for (int o = 10; o < 16; o++) {
+//            CustomDb db = new CustomDb();
+//            db.setDb_wait_time(2102.0 + o);
+//            db.setDburl("karlou" + 0);
+//            db.setId(0);
+//            db.setDb_alias("karlou" + o);
+//            db.setDb_user("karlou" + o);
+//            db.setDb_pwd("zxca" + o);
+//            list.add(db);
+//        }
+//        int i = tesMapper.insertList(list);
+//        return 0;
+//    }
+//
+//    ;
+//
+//    /**
+//     * 插入数据
+//     * 根据自定义条件插入数据
+//     */
+//    @PostMapping("insertDyn")
+//    int insertDyn() {
+//        Map<String, Object> hashMap = new HashMap<>();
+//        hashMap.put("db_alias", "qiw");
+//        hashMap.put("db_wait_time", 3044.0);
+//        hashMap.put("db_user", "qiw");
+//        hashMap.put("dbpwd", "qiw");
+//        hashMap.put("id", 20);
+//        hashMap.put("db_url", "12121");
+//        int i = tesMapper.insertDyn(hashMap);
+//        return i;
+//    }
+//
 
 }

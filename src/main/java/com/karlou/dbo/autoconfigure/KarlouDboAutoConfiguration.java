@@ -1,24 +1,19 @@
 package com.karlou.dbo.autoconfigure;
 
 import com.karlou.dbo.injector.SqlInjector;
-import com.karlou.dbo.injector.impl.MySqlInjectorImpl;
 import com.karlou.dbo.util.KarlouUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +25,7 @@ import java.util.Set;
  * @mail 95623111@qq.com
  * @date 2020/9/25 09:08
  */
+@org.springframework.context.annotation.Configuration
 public class KarlouDboAutoConfiguration {
     private final static Logger logger = LoggerFactory.getLogger(KarlouDboAutoConfiguration.class);
 
@@ -47,7 +43,7 @@ public class KarlouDboAutoConfiguration {
              * 所以测试阶段 暂时屏蔽自动获取路径
              */
             if (!AutoConfigurationPackages.has(this.beanFactory)) {
-                logger.info("Could not determine auto-configuration package, automatic mapper scanning disabled.");
+                logger.info("Could not determine auto-configuration package, automatic SqlInjector scanning disabled.");
                 return;
             }
 

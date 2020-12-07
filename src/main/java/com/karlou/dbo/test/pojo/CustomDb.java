@@ -3,9 +3,7 @@ package com.karlou.dbo.test.pojo;
 import com.karlou.dbo.annotation.FieldAttribute;
 import com.karlou.dbo.annotation.TableAttribute;
 import com.karlou.dbo.enums.IndexesTypeEnum;
-import lombok.Data;
 
-@Data
 @TableAttribute(name = "k_mzc_test", datasource = "karlou")
 public class CustomDb {
     @FieldAttribute(iskey = true)

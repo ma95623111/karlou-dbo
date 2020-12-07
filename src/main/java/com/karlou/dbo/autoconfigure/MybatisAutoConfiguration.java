@@ -1,5 +1,6 @@
 package com.karlou.dbo.autoconfigure;
 
+import com.karlou.dbo.config.KarlouMybatisConfiguration;
 import com.karlou.dbo.properties.MybatisProperties;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
@@ -43,7 +44,6 @@ import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,7 +59,7 @@ import java.util.stream.Stream;
 @ConditionalOnClass({SqlSessionFactory.class, SqlSessionFactoryBean.class})
 @ConditionalOnSingleCandidate(DataSource.class)
 @EnableConfigurationProperties(MybatisProperties.class)
-@AutoConfigureAfter({DataSourceAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class})
+@AutoConfigureAfter({DruidDataSourceAutoConfigure.class, MybatisLanguageDriverAutoConfiguration.class})
 public class MybatisAutoConfiguration implements InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(MybatisAutoConfiguration.class);
@@ -160,7 +160,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
     private void applyConfiguration(SqlSessionFactoryBean factory) {
         Configuration configuration = this.properties.getConfiguration();
         if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
-            configuration = new Configuration();
+            configuration = new KarlouMybatisConfiguration();
         }
         if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
             for (ConfigurationCustomizer customizer : this.configurationCustomizers) {

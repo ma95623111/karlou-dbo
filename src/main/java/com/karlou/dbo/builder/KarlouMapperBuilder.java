@@ -3,7 +3,7 @@ package com.karlou.dbo.builder;
 import com.karlou.dbo.annotation.TableAttribute;
 import com.karlou.dbo.injector.SqlInjector;
 import com.karlou.dbo.util.KarlouUtil;
-import com.karlou.dbo.SpringContextUtil;
+import com.karlou.dbo.util.SpringContextUtil;
 import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.apache.ibatis.session.Configuration;
 import org.slf4j.Logger;

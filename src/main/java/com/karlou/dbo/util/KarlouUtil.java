@@ -57,7 +57,7 @@ public class KarlouUtil {
     }
 
     /**
-     * @see #isBlank(CharSequence)
+     * @see (CharSequence)
      */
     public static boolean isNotBlank(CharSequence cs) {
         return !isBlank(cs);
