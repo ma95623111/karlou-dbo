@@ -33,7 +33,7 @@ public class KarlouMapperBuilder {
     public void injector(Configuration configuration, MapperBuilderAssistant assistant) {
         Class entityClass = getEntityClass();
         TableAttribute tableAnnotation = (TableAttribute) entityClass.getAnnotation(TableAttribute.class);
-        SqlInjector bean = (SqlInjector) SpringContextUtil.getBean(tableAnnotation.sqlInjector().getName());
+        SqlInjector bean = (SqlInjector) SpringContextUtil.getBean(tableAnnotation.sqlInjector());
         bean.injector(configuration, assistant, type, entityClass);
     }
 

@@ -1,8 +1,12 @@
 package com.karlou.dbo.util;
 
+import com.alibaba.druid.pool.DruidAbstractDataSource;
 import com.karlou.dbo.base.BaseMapper;
 import com.karlou.dbo.exception.KarlouDboException;
 import com.karlou.dbo.injector.SqlInjector;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.type.filter.AssignableTypeFilter;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,15 +68,13 @@ public class KarlouUtil {
     }
 
     /**
-     * 查询包路径下，指定父类下所有子类
+     * 查询包下，指定父类下所有子类
      *
      * @param packages 路径
      * @param c        父类
      * @return
      */
-    public static Set<Class> getPackpathClass(String packages, Class c) {
-        Set<Class> res = new HashSet<>();
-
+    public static Set<Class> getPackpathClass(String packages, Class c,Set res) {
         String path = packages.replace(".", "/");
         URL url = Thread.currentThread().getContextClassLoader().getResource(path);
         if (url != null) {
@@ -86,6 +88,29 @@ public class KarlouUtil {
                 }
             } else if ("file".equalsIgnoreCase(protocol)) {
                 res.addAll(getFileClasses(url, packages, c));
+            }
+        }
+        return res;
+    }
+    /**
+     * 查询包下，指定父类下所有子类
+     *
+     * @param jarPackage 路径
+     * @param c        父类
+     * @return
+     */
+    public static Set<Class> getJarPackageClass(String jarPackage, Class c,Set res) {
+        String path = jarPackage.replace(".", "/");
+        ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
+        provider.addIncludeFilter(new AssignableTypeFilter(c));
+        Set<BeanDefinition> components = provider.findCandidateComponents(jarPackage);
+        for (BeanDefinition component : components)
+        {
+            try {
+                Class cls = Class.forName(component.getBeanClassName());
+                res.add(cls);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
         return res;
@@ -104,14 +129,13 @@ public class KarlouUtil {
                 classPath = classPath.replace(".class", "");
                 try {
                     Class<?> aClass = Class.forName(packagePath + "." + classPath);
-//                    if (c.isAssignableFrom(aClass)&&!aClass.getName().equals(c.getName()))
                     if (c.isAssignableFrom(aClass) && !aClass.isInterface())
                         res.add(aClass);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             } else {
-                res.addAll(getPackpathClass(packagePath + "." + classPath, c));
+                res.addAll(getPackpathClass(packagePath + "." + classPath, c,res));
             }
         }
         return res;

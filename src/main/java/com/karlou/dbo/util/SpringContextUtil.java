@@ -1,31 +1,23 @@
 package com.karlou.dbo.util;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
-public class SpringContextUtil implements ApplicationContextAware {
-    private static ApplicationContext applicationContext;
+import java.util.HashMap;
+import java.util.Map;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringContextUtil.applicationContext = applicationContext;
+public class SpringContextUtil {
+
+    private final static Map<Class, Object> map = new HashMap<>();
+
+    public static Map<Class, Object> getMap() {
+        return map;
     }
 
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
+    public static void addMap(Map addMap) {
+        map.putAll(addMap);
     }
 
-    /**
-     * 获取对象
-     *
-     * @param name
-     * @return Object
-     * @throws BeansException
-     */
-    public static Object getBean(String name) throws BeansException {
-        return applicationContext.getBean(name);
+    public static void put(Class c, Object b) {
+        map.put(c, b);
     }
 
     /**
@@ -33,10 +25,9 @@ public class SpringContextUtil implements ApplicationContextAware {
      *
      * @param cls
      * @return Object
-     * @throws BeansException
      */
-    public static <C> Object getBean(Class<C> cls) throws BeansException {
-        return applicationContext.getBean(cls);
+    public static <C> Object getBean(Class<C> cls)  {
+        return map.get(cls);
     }
 
 }

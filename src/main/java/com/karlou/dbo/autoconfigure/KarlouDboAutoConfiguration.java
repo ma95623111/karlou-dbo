@@ -2,6 +2,7 @@ package com.karlou.dbo.autoconfigure;
 
 import com.karlou.dbo.injector.SqlInjector;
 import com.karlou.dbo.util.KarlouUtil;
+import com.karlou.dbo.util.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -14,9 +15,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 自动扫描根包下（含jar中符合条件的类，并注入到bean中）
@@ -35,7 +34,7 @@ public class KarlouDboAutoConfiguration {
     public static class AutoConfiguredRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
 
         private BeanFactory beanFactory;
-
+        private final Set<Class> res = new HashSet<>();
         @Override
         public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
             /**
@@ -48,23 +47,27 @@ public class KarlouDboAutoConfiguration {
             }
 
             logger.info("Searching for SqlInjector SubClass");
-
+            //----包加载
             List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
 //            List<String> packages = new ArrayList<>();
-//            packages.add("com.karlou.dbo");
+            packages.add("com.karlou.dbo");
             if (logger.isDebugEnabled()) {
                 packages.forEach(pkg -> logger.debug("Using auto-configuration base package '{}'", pkg));
             }
             packages.stream().forEach(k -> {
-                Set<Class> sqlInjectorSubs = KarlouUtil.getPackpathClass(k, SqlInjector.class);
-                Iterator<Class> $sqli = sqlInjectorSubs.iterator();
-                while ($sqli.hasNext()) {
-                    Class nClass = $sqli.next();
-                    BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(nClass);
-                    logger.debug("injector bean :" + nClass.getName());
-                    registry.registerBeanDefinition(nClass.getName(), builder.getBeanDefinition());
-                }
+                KarlouUtil.getJarPackageClass(k, SqlInjector.class,this.res);
+
             });
+            Iterator<Class> $sqli = this.res.iterator();
+            while ($sqli.hasNext()) {
+                Class nClass = $sqli.next();
+                BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(nClass);
+                logger.debug("injector bean :" + nClass.getName());
+                registry.registerBeanDefinition(nClass.getName(), builder.getBeanDefinition());
+                Object bean = this.beanFactory.getBean(nClass.getName());
+                SpringContextUtil.put(nClass, bean);
+            }
+
         }
 
         @Override

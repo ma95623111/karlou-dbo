@@ -103,6 +103,13 @@
         "reason": "The 'userdirective' is deprecated since Velocity 2.x. This property defined for keeping backward compatibility with older velocity version.",
         "replacement": "mybatis.scripting-language-driver.velocity.velocity-settings.runtime.custom_directives"
       }
+    },
+    {
+      "defaultValue": "",
+      "name": "karlou.dbo.auto-scanner-injectors",
+      "description": "A default scope for injectors bean that scanned by auto-configure.",
+      "type": "java.lang.String",
+      "sourceType": "com.karlou.dbo.properties.KarlouDboProperties"
     }
   ],
   "hints": [

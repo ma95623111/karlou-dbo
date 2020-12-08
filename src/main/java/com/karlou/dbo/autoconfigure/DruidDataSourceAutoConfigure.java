@@ -11,6 +11,7 @@ import com.karlou.dbo.route.DynamicDataSourceRoute;
 import com.karlou.dbo.wrapper.DruidDataSourceWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 @org.springframework.context.annotation.Configuration
 @ConditionalOnClass(DruidDataSource.class)
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
-@EnableConfigurationProperties({DruidStatProperties.class, DataSourceProperties.class, KarlouDboProperties.class})
+@EnableConfigurationProperties({DruidStatProperties.class, DataSourceProperties.class})
 @Import({DruidSpringAopConfiguration.class,
         DruidStatViewServletConfiguration.class,
         DruidWebStatFilterConfiguration.class,
